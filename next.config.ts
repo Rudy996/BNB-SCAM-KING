@@ -6,9 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // Если репозиторий не в корне GitHub, раскомментируйте и укажите путь:
-  // basePath: '/your-repo-name',
-  // assetPrefix: '/your-repo-name',
+  basePath: '/BNB-SCAM-KING',
+  assetPrefix: '/BNB-SCAM-KING',
 };
 
 export default nextConfig;
