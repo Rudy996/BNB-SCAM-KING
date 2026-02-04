@@ -93,7 +93,7 @@ export function UpgradeBlock() {
   }
 
   return (
-    <div className="card">
+    <div className="card upgrade-block-full-width">
       <h2 className="card-title">
         <span className="icon">⬆️</span>
         Апгрейд зданий
@@ -112,16 +112,16 @@ export function UpgradeBlock() {
           <>
             {/* Таблица зданий */}
             <div className="mb-4 overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse upgrade-table">
                 <thead>
                   <tr className="border-b border-gray-700">
-                    <th className="text-left p-2 text-xs text-gray-400">Tile ID</th>
-                    <th className="text-left p-2 text-xs text-gray-400">Уровень</th>
-                    <th className="text-left p-2 text-xs text-gray-400">Апгрейды</th>
-                    <th className="text-left p-2 text-xs text-gray-400">Стоимость</th>
-                    <th className="text-left p-2 text-xs text-gray-400">+Доход/ч</th>
-                    <th className="text-left p-2 text-xs text-gray-400">Осталось</th>
-                    <th className="text-left p-2 text-xs text-gray-400">Действие</th>
+                    <th className="text-left p-3 text-sm font-semibold text-gray-300">Tile ID</th>
+                    <th className="text-left p-3 text-sm font-semibold text-gray-300">Уровень</th>
+                    <th className="text-left p-3 text-sm font-semibold text-gray-300">Апгрейды</th>
+                    <th className="text-left p-3 text-sm font-semibold text-gray-300">Стоимость</th>
+                    <th className="text-left p-3 text-sm font-semibold text-gray-300">+Доход/ч</th>
+                    <th className="text-left p-3 text-sm font-semibold text-gray-300">Осталось</th>
+                    <th className="text-left p-3 text-sm font-semibold text-gray-300">Действие</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -135,29 +135,29 @@ export function UpgradeBlock() {
                         key={building.tileId} 
                         className={`border-b border-gray-800 hover:bg-gray-800/30 ${isSelected ? 'bg-gold-400/10' : ''}`}
                       >
-                        <td className="p-2 text-sm">#{building.tileId}</td>
-                        <td className="p-2 text-sm text-gold-400">Lv{building.level}</td>
-                        <td className="p-2 text-sm">{building.upgrades}/9</td>
-                        <td className="p-2 text-sm text-gold-400">{formatNumber(building.upgradeCost)}</td>
-                        <td className="p-2 text-sm text-green-400">+{formatNumber(building.upgradePerHour)}</td>
-                        <td className="p-2 text-sm">
+                        <td className="p-3 text-base font-medium">#{building.tileId}</td>
+                        <td className="p-3 text-base text-gold-400 font-semibold">Lv{building.level}</td>
+                        <td className="p-3 text-base">{building.upgrades}/9</td>
+                        <td className="p-3 text-base text-gold-400 font-medium">{formatNumber(building.upgradeCost)}</td>
+                        <td className="p-3 text-base text-green-400 font-medium">+{formatNumber(building.upgradePerHour)}</td>
+                        <td className="p-3 text-base">
                           {isMaxUpgrades ? (
-                            <span className="text-red-400">Макс</span>
+                            <span className="text-red-400 font-semibold">Макс</span>
                           ) : (
-                            <span>{building.upgradesLeft}</span>
+                            <span className="font-medium">{building.upgradesLeft}</span>
                           )}
                         </td>
-                        <td className="p-2">
+                        <td className="p-3">
                           {isMaxUpgrades ? (
-                            <span className="text-xs text-gray-500">Макс</span>
+                            <span className="text-sm text-gray-500">Макс</span>
                           ) : (
                             <button
                               onClick={() => setSelectedTileId(building.tileId)}
                               disabled={isPending || isConfirming}
-                              className={`text-xs px-2 py-1 rounded ${
+                              className={`text-sm px-3 py-1.5 rounded font-medium transition-colors ${
                                 isSelected 
-                                  ? 'bg-gold-400/20 text-gold-400' 
-                                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                  ? 'bg-gold-400/20 text-gold-400 border border-gold-400/30' 
+                                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600'
                               }`}
                             >
                               Выбрать

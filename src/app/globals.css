@@ -241,12 +241,22 @@ body {
   .grid-layout > :nth-child(n+4) {
     grid-column: span 1;
   }
+  
+  /* UpgradeBlock на всю ширину */
+  .grid-layout > .upgrade-block-full-width {
+    grid-column: 1 / -1;
+  }
 }
 
 /* На средних экранах: 2 колонки */
 @media (min-width: 840px) and (max-width: 1199px) {
   .grid-layout {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* UpgradeBlock на всю ширину */
+  .grid-layout > .upgrade-block-full-width {
+    grid-column: 1 / -1;
   }
 }
 
@@ -664,6 +674,23 @@ body {
 
 .preview-row span:first-child {
   color: var(--text-secondary);
+}
+
+/* Upgrade Table Styles */
+.upgrade-table {
+  min-width: 100%;
+}
+
+.upgrade-table th {
+  white-space: nowrap;
+}
+
+.upgrade-table td {
+  white-space: nowrap;
+}
+
+.upgrade-block-full-width {
+  width: 100%;
 }
 
 .preview-formula {
