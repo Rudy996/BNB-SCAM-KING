@@ -15,14 +15,28 @@ export function WalletButton() {
   const { isBSC, isWrongNetwork, chainId } = useBSCNetwork();
   
   // Читаем баланс BNB смарт-контракта
-  const { data: contractBalance } = useBalance({
+  const { data: contractBalance, refetch: refetchBalance } = useBalance({
     address: BNBKING_ADDRESS,
     chainId: bsc.id,
     query: {
       enabled: mounted,
-      refetchInterval: 10000, // Обновляем каждые 10 секунд
+      refetchInterval: 3000, // Обновляем каждые 3 секунды для актуального баланса
+      refetchOnWindowFocus: true, // Обновляем при фокусе окна
+      refetchOnReconnect: true, // Обновляем при переподключении
     },
   });
+
+  // Обновляем баланс при возврате фокуса на окно
+  useEffect(() => {
+    if (!mounted) return;
+    
+    const handleFocus = () => {
+      refetchBalance();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [mounted, refetchBalance]);
 
   const { connect, connectors, isPending, error: connectError } = useConnect({
     mutation: {
