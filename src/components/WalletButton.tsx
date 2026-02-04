@@ -1,9 +1,11 @@
 'use client';
 
-import { useAccount, useConnect, useDisconnect, useSwitchChain } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useSwitchChain, useBalance } from 'wagmi';
 import { bsc } from 'wagmi/chains';
 import { useEffect, useState } from 'react';
 import { useBSCNetwork } from '@/hooks/useBSCNetwork';
+import { BNBKING_ADDRESS } from '@/config/contract';
+import { formatUnits } from 'viem';
 
 export function WalletButton() {
   const [mounted, setMounted] = useState(false);
@@ -11,6 +13,16 @@ export function WalletButton() {
   const { disconnect } = useDisconnect();
   const { switchChain, isPending: isSwitching } = useSwitchChain();
   const { isBSC, isWrongNetwork, chainId } = useBSCNetwork();
+  
+  // Читаем баланс BNB смарт-контракта
+  const { data: contractBalance } = useBalance({
+    address: BNBKING_ADDRESS,
+    chainId: bsc.id,
+    query: {
+      enabled: mounted,
+      refetchInterval: 10000, // Обновляем каждые 10 секунд
+    },
+  });
 
   const { connect, connectors, isPending, error: connectError } = useConnect({
     mutation: {
@@ -39,6 +51,15 @@ export function WalletButton() {
   const formatAddress = (addr: string) => {
     if (!addr) return '';
     return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+  };
+
+  const formatBNB = (value: bigint | undefined) => {
+    if (!value) return '0.00';
+    const bnb = formatUnits(value, 18);
+    const num = parseFloat(bnb);
+    if (num < 0.01) return num.toFixed(6);
+    if (num < 1) return num.toFixed(4);
+    return num.toFixed(2);
   };
 
   const handleConnect = () => {
@@ -92,6 +113,12 @@ export function WalletButton() {
   return (
     <div className="wallet-button">
       <div className="wallet-info">
+        {contractBalance && (
+          <div className="flex items-center gap-1 text-xs text-gray-400">
+            <span className="text-yellow-400">BNB:</span>
+            <span className="font-mono">{formatBNB(contractBalance.value)}</span>
+          </div>
+        )}
         <div className="wallet-address">
           <span className="font-mono text-gold-400">{formatAddress(address!)}</span>
           <span className={`wallet-network ${isWrongNetwork ? 'wrong' : 'correct'}`}>
