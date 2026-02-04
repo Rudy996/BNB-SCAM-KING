@@ -163,11 +163,6 @@ export function WalletButton() {
           className="social-badge telegram-badge"
           title="Telegram канал Rudy vs Web3"
         >
-          <img 
-            src="https://e7.pngegg.com/pngimages/284/690/png-clipart-telegram-logo-computer-icons-telegram-logo-blue-angle.png" 
-            alt="Telegram" 
-            className="social-icon-img"
-          />
           <span className="social-label">Rudy vs Web3</span>
         </a>
         
@@ -178,11 +173,6 @@ export function WalletButton() {
           className="social-badge youtube-badge"
           title="YouTube канал Rudy vs Web3"
         >
-          <img 
-            src="https://www.citypng.com/public/uploads/preview/red-youtube-logo-symbol-701751694792489qxkccchok1.png" 
-            alt="YouTube" 
-            className="social-icon-img"
-          />
           <span className="social-label">Rudy vs Web3</span>
         </a>
 
