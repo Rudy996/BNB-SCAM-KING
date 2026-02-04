@@ -27,11 +27,9 @@ jobs:
           node-version: '20'
       
       - name: Install dependencies
-        working-directory: ./bnb-king-dapp
         run: npm install
       
       - name: Build
-        working-directory: ./bnb-king-dapp
         run: npm run build
       
       - name: Setup Pages
@@ -40,7 +38,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./bnb-king-dapp/out
+          path: ./out
 
   deploy:
     environment:
