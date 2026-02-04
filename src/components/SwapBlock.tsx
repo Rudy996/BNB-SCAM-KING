@@ -141,13 +141,6 @@ export function SwapBlock() {
           </div>
         )}
 
-        <div className="info-banner mb-4">
-          <span className="text-xs">⚠️</span>
-          <span className="text-xs">
-            On-chain значения обновятся только при транзакции. Теоретические gems могут отличаться.
-          </span>
-        </div>
-
         <div className="form-group">
           <label className="form-label">Количество Gems</label>
           <input

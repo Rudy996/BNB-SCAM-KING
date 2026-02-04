@@ -185,14 +185,6 @@ export function BattleBlock() {
               </div>
             )}
 
-            {/* Important Warning */}
-            <div className="info-banner mb-4">
-              <span className="text-xs">⚠️</span>
-              <span className="text-xs">
-                ВАЖНО: battle() НЕ вызывает collect(). Перед батлом выполните collect через swap/sell/build, иначе пропустите почасовые начисления.
-              </span>
-            </div>
-
             {/* Win Chance Input */}
             <div className="form-group">
               <label className="form-label">Win Chance ({MIN_WIN_CHANCE}-{MAX_WIN_CHANCE})</label>
