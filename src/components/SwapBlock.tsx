@@ -91,6 +91,12 @@ export function SwapBlock() {
     setGemsInput('');
   };
 
+  const handleMax = () => {
+    if (theory && theory.gemsTheory > 0) {
+      setGemsInput(theory.gemsTheory.toString());
+    }
+  };
+
   if (!mounted) {
     return (
       <div className="card">
@@ -143,14 +149,24 @@ export function SwapBlock() {
 
         <div className="form-group">
           <label className="form-label">Количество Gems</label>
-          <input
-            type="number"
-            value={gemsInput}
-            onChange={(e) => setGemsInput(e.target.value)}
-            placeholder="Введите количество"
-            className={`form-input ${inputError ? 'error' : ''}`}
-            disabled={isPending || isConfirming}
-          />
+          <div className="flex gap-2">
+            <input
+              type="number"
+              value={gemsInput}
+              onChange={(e) => setGemsInput(e.target.value)}
+              placeholder="Введите количество"
+              className={`form-input flex-1 ${inputError ? 'error' : ''}`}
+              disabled={isPending || isConfirming}
+            />
+            <button
+              onClick={handleMax}
+              disabled={!theory || theory.gemsTheory <= 0 || isPending || isConfirming}
+              className="btn btn-outline px-4 whitespace-nowrap"
+              type="button"
+            >
+              MAX
+            </button>
+          </div>
           {inputError && (
             <span className="form-error">{inputError}</span>
           )}
