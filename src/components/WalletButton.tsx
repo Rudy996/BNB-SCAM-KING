@@ -127,6 +127,28 @@ export function WalletButton() {
   return (
     <div className="wallet-button">
       <div className="wallet-info">
+        <a
+          href="https://t.me/rudy_web3"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-badge telegram-badge"
+          title="Telegram канал Rudy vs Web3"
+        >
+          <span className="social-icon">✈️</span>
+          <span className="social-label">Rudy vs Web3</span>
+        </a>
+        
+        <a
+          href="https://www.youtube.com/@RudyCrypto"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-badge youtube-badge"
+          title="YouTube канал Rudy vs Web3"
+        >
+          <span className="social-icon">▶</span>
+          <span className="social-label">Rudy vs Web3</span>
+        </a>
+
         {contractBalance && (
           <div className="contract-balance-badge">
             <span className="contract-balance-label">BNB на смарт-контракте:</span>

@@ -101,6 +101,60 @@ body {
   color: #ef4444;
 }
 
+.social-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.telegram-badge {
+  background: linear-gradient(135deg, rgba(37, 150, 190, 0.2) 0%, rgba(37, 150, 190, 0.12) 100%);
+  border: 1px solid rgba(37, 150, 190, 0.4);
+}
+
+.telegram-badge:hover {
+  background: linear-gradient(135deg, rgba(37, 150, 190, 0.3) 0%, rgba(37, 150, 190, 0.18) 100%);
+  border-color: rgba(37, 150, 190, 0.6);
+  transform: translateY(-1px);
+}
+
+.youtube-badge {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.12) 100%);
+  border: 1px solid rgba(255, 0, 0, 0.4);
+}
+
+.youtube-badge:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 0, 0.18) 100%);
+  border-color: rgba(255, 0, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+.social-icon {
+  font-size: 1rem;
+}
+
+.social-label {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.telegram-badge .social-label {
+  color: #6ab7e8;
+}
+
+.youtube-badge .social-label {
+  color: #ff6b6b;
+}
+
 .contract-balance-badge {
   display: flex;
   align-items: center;
