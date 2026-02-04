@@ -25,7 +25,7 @@ export function SwapBlock() {
 
   useEffect(() => {
     if (!kingdom) {
-      setTheory(null);
+      setTheory(undefined);
       return;
     }
 

@@ -25,7 +25,7 @@ export function SwapGemsToBNBBlock() {
 
   useEffect(() => {
     if (!kingdom) {
-      setTheory(null);
+      setTheory(undefined);
       return;
     }
 

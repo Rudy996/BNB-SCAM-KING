@@ -68,7 +68,9 @@ export function useKingdom() {
     const battlesInRow = safeToNumber(rawKingdom.battlesInRow);
     const isWinInRow = rawKingdom.isWinInRow;
     const ally = rawKingdom.ally;
-    const tiles = Array.from(rawKingdom.tiles).map(safeToNumber);
+    const tiles = Array.isArray(rawKingdom.tiles) 
+      ? (rawKingdom.tiles as (number | bigint)[]).map(safeToNumber)
+      : Array.from(rawKingdom.tiles as unknown[]).map((v) => safeToNumber(v as number | bigint));
 
     const { occupiedTiles, freeTiles, occupiedSet } = parseTiles(tiles);
     const theory = calculateTheory(gold, gems, perHour, claimTime);
