@@ -9,6 +9,7 @@ import { formatUnits } from 'viem';
 
 export function WalletButton() {
   const [mounted, setMounted] = useState(false);
+  const [lastUpdateTime, setLastUpdateTime] = useState<Date | null>(null);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { switchChain, isPending: isSwitching } = useSwitchChain();
@@ -25,6 +26,23 @@ export function WalletButton() {
       refetchOnReconnect: true, // Обновляем при переподключении
     },
   });
+
+  // Отслеживаем время последнего обновления баланса
+  useEffect(() => {
+    if (contractBalance) {
+      setLastUpdateTime(new Date());
+    }
+  }, [contractBalance]);
+
+  // Обновляем отображение времени каждую секунду
+  const [, setTimeTick] = useState(0);
+  useEffect(() => {
+    if (!lastUpdateTime) return;
+    const interval = setInterval(() => {
+      setTimeTick((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [lastUpdateTime]);
 
   // Обновляем баланс при возврате фокуса на окно
   useEffect(() => {
@@ -74,6 +92,17 @@ export function WalletButton() {
     if (num < 0.01) return num.toFixed(6);
     if (num < 1) return num.toFixed(4);
     return num.toFixed(2);
+  };
+
+  const formatUpdateTime = (date: Date | null) => {
+    if (!date) return '';
+    const now = new Date();
+    const diff = Math.floor((now.getTime() - date.getTime()) / 1000);
+    
+    if (diff < 5) return 'только что';
+    if (diff < 60) return `${diff} сек назад`;
+    if (diff < 3600) return `${Math.floor(diff / 60)} мин назад`;
+    return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
   };
 
   const handleConnect = () => {
@@ -134,7 +163,11 @@ export function WalletButton() {
           className="social-badge telegram-badge"
           title="Telegram канал Rudy vs Web3"
         >
-          <span className="social-icon">✈️</span>
+          <img 
+            src="https://e7.pngegg.com/pngimages/284/690/png-clipart-telegram-logo-computer-icons-telegram-logo-blue-angle.png" 
+            alt="Telegram" 
+            className="social-icon-img"
+          />
           <span className="social-label">Rudy vs Web3</span>
         </a>
         
@@ -145,14 +178,27 @@ export function WalletButton() {
           className="social-badge youtube-badge"
           title="YouTube канал Rudy vs Web3"
         >
-          <span className="social-icon">▶</span>
+          <img 
+            src="https://www.citypng.com/public/uploads/preview/red-youtube-logo-symbol-701751694792489qxkccchok1.png" 
+            alt="YouTube" 
+            className="social-icon-img"
+          />
           <span className="social-label">Rudy vs Web3</span>
         </a>
 
         {contractBalance && (
           <div className="contract-balance-badge">
-            <span className="contract-balance-label">BNB на смарт-контракте:</span>
-            <span className="contract-balance-value">{formatBNB(contractBalance.value)} $BNB</span>
+            <div className="contract-balance-content">
+              <div className="contract-balance-row">
+                <span className="contract-balance-label">BNB на смарт-контракте:</span>
+                <span className="contract-balance-value">{formatBNB(contractBalance.value)} $BNB</span>
+              </div>
+              {lastUpdateTime && (
+                <div className="contract-balance-update">
+                  Обновлено: {formatUpdateTime(lastUpdateTime)}
+                </div>
+              )}
+            </div>
           </div>
         )}
         <div className="wallet-address">
