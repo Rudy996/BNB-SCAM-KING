@@ -114,9 +114,9 @@ export function WalletButton() {
     <div className="wallet-button">
       <div className="wallet-info">
         {contractBalance && (
-          <div className="flex items-center gap-1 text-xs text-gray-400">
-            <span className="text-yellow-400">BNB:</span>
-            <span className="font-mono">{formatBNB(contractBalance.value)}</span>
+          <div className="contract-balance-badge">
+            <span className="contract-balance-label">BNB на смарт-контракте:</span>
+            <span className="contract-balance-value">{formatBNB(contractBalance.value)} $BNB</span>
           </div>
         )}
         <div className="wallet-address">

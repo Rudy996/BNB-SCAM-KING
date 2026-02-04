@@ -91,19 +91,6 @@ export function TheoryBlock() {
       </h2>
       
       <div className="card-content">
-        <div className="info-banner mb-4">
-          <div className="flex items-start gap-2">
-            <span className="text-sm">ℹ️</span>
-            <div className="flex-1 text-xs text-gray-300 leading-relaxed">
-              <strong className="text-white">Почему есть теоретический расчёт?</strong>
-              <br />
-              В смарт-контракте хранятся данные на момент последней транзакции (gold, gems, claimTime, perHour). 
-              Дальше мы сами рассчитываем, сколько должно накопиться за прошедшее время по формуле collect. 
-              Реальные значения обновятся только при следующей транзакции в контракте.
-            </div>
-          </div>
-        </div>
-
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div className="stat-box gold theory">
             <span className="stat-label">Серебро (теория)</span>
@@ -135,6 +122,19 @@ export function TheoryBlock() {
             <br />
             earned = hoursPassed × perHour
           </code>
+        </div>
+
+        <div className="info-banner mt-4">
+          <div className="flex items-start gap-2">
+            <span className="text-sm">ℹ️</span>
+            <div className="flex-1 text-xs text-gray-300 leading-relaxed">
+              <strong className="text-white">Почему есть теоретический расчёт?</strong>
+              <br />
+              В смарт-контракте хранятся данные на момент последней транзакции (gold, gems, claimTime, perHour). 
+              Дальше мы сами рассчитываем, сколько должно накопиться за прошедшее время по формуле collect. 
+              Реальные значения обновятся только при следующей транзакции в контракте.
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -101,6 +101,36 @@ body {
   color: #ef4444;
 }
 
+.contract-balance-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.contract-balance-badge:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.12) 100%);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.contract-balance-label {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.contract-balance-value {
+  color: var(--gold-light);
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+}
+
 /* Main Container */
 .main-container {
   max-width: 1400px;
