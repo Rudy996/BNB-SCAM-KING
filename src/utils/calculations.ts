@@ -7,6 +7,16 @@ export interface TileInfo {
   raw: number;
 }
 
+export interface BuildingUpgradeInfo {
+  tileId: number;
+  rawValue: number;
+  level: number;
+  upgrades: number;
+  upgradesLeft: number;
+  upgradeCost: number;
+  upgradePerHour: number;
+}
+
 export interface TheoryCalc {
   hoursPassed: number;
   earned: number;
@@ -134,4 +144,46 @@ export function safeToNumber(value: bigint | number): number {
   }
   console.warn('Value exceeds safe integer range:', value.toString());
   return Number(value);
+}
+
+/**
+ * Parse occupied buildings with upgrade information
+ * @param tiles - Array of 360 tile values
+ * @param buildingStats - Building stats by level { cost, perHour }
+ * @returns Array of BuildingUpgradeInfo for occupied tiles
+ */
+export function parseBuildingsForUpgrade(
+  tiles: readonly number[] | number[],
+  buildingStats: Record<number, { cost: number; perHour: number }>
+): BuildingUpgradeInfo[] {
+  const buildings: BuildingUpgradeInfo[] = [];
+
+  for (let i = 0; i < 360; i++) {
+    const rawValue = Number(tiles[i] || 0);
+    if (rawValue === 0) continue; // Skip empty tiles
+
+    const level = rawValue % 10;
+    const upgrades = Math.floor(rawValue / 10);
+    const upgradesLeft = 9 - upgrades;
+
+    // Get building stats for this level
+    const stats = buildingStats[level];
+    if (!stats) continue; // Skip if level not found
+
+    // Calculate upgrade cost and per hour (cost/4 and perHour/4)
+    const upgradeCost = Math.floor(stats.cost / 4);
+    const upgradePerHour = Math.floor(stats.perHour / 4);
+
+    buildings.push({
+      tileId: i,
+      rawValue,
+      level,
+      upgrades,
+      upgradesLeft,
+      upgradeCost,
+      upgradePerHour,
+    });
+  }
+
+  return buildings;
 }

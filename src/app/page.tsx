@@ -7,6 +7,7 @@ import { SwapBlock } from '@/components/SwapBlock';
 import { SwapGemsToBNBBlock } from '@/components/SwapGemsToBNBBlock';
 import { BuildBlock } from '@/components/BuildBlock';
 import { BattleBlock } from '@/components/BattleBlock';
+import { UpgradeBlock } from '@/components/UpgradeBlock';
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
           <SwapBlock />
           <SwapGemsToBNBBlock />
           <BuildBlock />
+          <UpgradeBlock />
         </div>
       </main>
     </>

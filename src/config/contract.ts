@@ -60,6 +60,13 @@ export const BNBKING_ABI = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
+  {
+    inputs: [{ internalType: 'uint16', name: '_tileId', type: 'uint16' }],
+    name: 'upgradeBuilding',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
 ] as const;
 
 // Building Stats Table

@@ -6,3 +6,4 @@ export { SwapBlock } from './SwapBlock';
 export { SwapGemsToBNBBlock } from './SwapGemsToBNBBlock';
 export { BuildBlock } from './BuildBlock';
 export { BattleBlock } from './BattleBlock';
+export { UpgradeBlock } from './UpgradeBlock';

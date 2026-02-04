@@ -202,3 +202,56 @@ export function useBattle() {
     reset,
   };
 }
+
+export function useUpgradeBuilding() {
+  const { isBSC, isWrongNetwork } = useBSCNetwork();
+  const { switchChain } = useSwitchChain();
+  const { 
+    writeContract, 
+    data: hash, 
+    isPending, 
+    isError,
+    error,
+    reset 
+  } = useWriteContract();
+
+  const { 
+    isLoading: isConfirming, 
+    isSuccess: isConfirmed,
+    data: receipt 
+  } = useWaitForTransactionReceipt({ hash, chainId: bsc.id });
+
+  const upgrade = useCallback((tileId: number) => {
+    // Проверяем реальную сеть через наш хук
+    if (!isBSC || isWrongNetwork) {
+      switchChain({ chainId: bsc.id });
+      throw new Error('Пожалуйста, переключитесь на BSC Mainnet (Chain ID: 56) и попробуйте снова');
+    }
+    
+    // Проверяем диапазон tileId
+    if (tileId < 0 || tileId > 359) {
+      throw new Error('tileId должен быть от 0 до 359');
+    }
+    
+    // ЯВНО указываем chainId в параметрах writeContract
+    writeContract({
+      address: BNBKING_ADDRESS,
+      abi: BNBKING_ABI,
+      functionName: 'upgradeBuilding',
+      args: [tileId],
+      chainId: bsc.id, // Явно указываем BSC
+    });
+  }, [writeContract, isBSC, isWrongNetwork, switchChain]);
+
+  return {
+    upgrade,
+    hash,
+    isPending,
+    isConfirming,
+    isConfirmed,
+    isError,
+    error,
+    receipt,
+    reset,
+  };
+}
