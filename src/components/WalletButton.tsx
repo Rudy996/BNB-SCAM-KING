@@ -4,7 +4,7 @@ import { useAccount, useConnect, useDisconnect, useSwitchChain, useBalance } fro
 import { bsc } from 'wagmi/chains';
 import { useEffect, useState } from 'react';
 import { useBSCNetwork } from '@/hooks/useBSCNetwork';
-import { BNBKING_ADDRESS } from '@/config/contract';
+import { BNBKING_ADDRESS, BSC_EXPLORER } from '@/config/contract';
 import { formatUnits } from 'viem';
 
 export function WalletButton() {
@@ -177,7 +177,13 @@ export function WalletButton() {
         </a>
 
         {contractBalance && (
-          <div className="contract-balance-badge">
+          <a
+            href={`${BSC_EXPLORER}/address/${BNBKING_ADDRESS}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contract-balance-badge"
+            title="Открыть смарт-контракт в BSCScan"
+          >
             <div className="contract-balance-content">
               <div className="contract-balance-row">
                 <span className="contract-balance-label">BNB на смарт-контракте:</span>
@@ -189,7 +195,7 @@ export function WalletButton() {
                 </div>
               )}
             </div>
-          </div>
+          </a>
         )}
         <div className="wallet-address">
           <span className="font-mono text-gold-400">{formatAddress(address!)}</span>

@@ -177,11 +177,14 @@ body {
   transition: all 0.3s ease;
   min-height: 60px; /* Высота с двумя строками */
   box-sizing: border-box;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .contract-balance-badge:hover {
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.12) 100%);
   border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-1px);
 }
 
 .contract-balance-content {
