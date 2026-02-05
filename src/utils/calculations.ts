@@ -147,6 +147,40 @@ export function safeToNumber(value: bigint | number): number {
 }
 
 /**
+ * Calculate daily income in USD
+ * @param perHour - Income per hour (in gems)
+ * @param bnbPrice - Current BNB price in USD
+ * @param gemsToBnbRate - Rate to convert gems to BNB (default: 0.000001)
+ * @returns Daily income in USD
+ */
+export function calculateDailyIncomeUSD(
+  perHour: number,
+  bnbPrice: number | null,
+  gemsToBnbRate: number = 0.000001
+): number | null {
+  if (!bnbPrice || perHour <= 0) return null;
+  
+  // Доход в день (в гемах)
+  const dailyGems = perHour * 24;
+  
+  // Конвертируем гемы в BNB
+  const dailyBNB = dailyGems * gemsToBnbRate;
+  
+  // Конвертируем BNB в USD
+  const dailyUSD = dailyBNB * bnbPrice;
+  
+  return dailyUSD;
+}
+
+/**
+ * Format USD value with 2 decimal places
+ */
+export function formatUSD(value: number | null): string {
+  if (value === null) return '—';
+  return `$${value.toFixed(2)}`;
+}
+
+/**
  * Parse occupied buildings with upgrade information
  * @param tiles - Array of 360 tile values
  * @param buildingStats - Building stats by level { cost, perHour }

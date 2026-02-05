@@ -1,12 +1,15 @@
 'use client';
 
 import { useKingdom } from '@/hooks/useKingdom';
-import { formatNumber, formatClaimTime } from '@/utils/calculations';
+import { useBNBPrice } from '@/hooks/useBNBPrice';
+import { formatNumber, calculateDailyIncomeUSD, formatUSD } from '@/utils/calculations';
+import { GEMS_TO_BNB_RATE } from '@/config/contract';
 import { useState, useEffect } from 'react';
 
 export function OnChainBlock() {
   const [mounted, setMounted] = useState(false);
   const { kingdom, isLoading, isError, error, isConnected, refetch } = useKingdom();
+  const { price: bnbPrice, isLoading: isLoadingPrice } = useBNBPrice();
   const [showAllTiles, setShowAllTiles] = useState(false);
 
   // Предотвращаем ошибку гидратации
@@ -126,8 +129,14 @@ export function OnChainBlock() {
             <span className="stat-value text-green-400">+{formatNumber(kingdom.perHour)}</span>
           </div>
           <div className="stat-box">
-            <span className="stat-label">Claim Time</span>
-            <span className="stat-value text-sm">{formatClaimTime(kingdom.claimTime)}</span>
+            <span className="stat-label">Доход/день $</span>
+            <span className="stat-value text-green-400">
+              {isLoadingPrice ? (
+                <span className="text-xs text-gray-500">Загрузка...</span>
+              ) : (
+                formatUSD(calculateDailyIncomeUSD(kingdom.perHour, bnbPrice, GEMS_TO_BNB_RATE))
+              )}
+            </span>
           </div>
         </div>
 
